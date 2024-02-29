@@ -55,9 +55,11 @@ class FloatingDanggnButton extends ConsumerWidget {
                   ),
                 ),
               ),
-              Tap(
+              GestureDetector(
                 onTap: () {
-                  ref.read(floatingButtonStateProvier.notifier).onTapButton();
+                  final currentTab = ref.read(currentTabProvider);
+                  debugPrint('currentTab: ${currentTab.tabName}');
+                  ref.read(floatingButtonStateProvier.notifier).toggleMenu();
                 },
                 child: AnimatedContainer(
                   duration: duration,

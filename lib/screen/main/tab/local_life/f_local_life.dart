@@ -28,6 +28,10 @@ class _LocalLifeFragmentState extends ConsumerState<LocalLifeFragment> {
   @override
   Widget build(BuildContext context) {
     return ListView(controller: scrollController, children: [
+      Image.network(
+        'https://picsum.photos/id/83/412/412',
+        fit: BoxFit.cover,
+      ),
       Container(height: 500, color: Colors.orange),
       Container(height: 500, color: Colors.blue),
       Container(height: 500, color: Colors.red),
