@@ -1,4 +1,8 @@
+import 'package:fast_app_base/common/common.dart';
+import 'package:fast_app_base/entity/dummies.dart';
+import 'package:fast_app_base/screen/main/fab/w_floating_danggn_button.dart';
 import 'package:fast_app_base/screen/main/fab/w_floating_danggn_button.riverpod.dart';
+import 'package:fast_app_base/screen/main/tab/home/w_product_post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,7 +14,9 @@ class HomeFragment extends ConsumerStatefulWidget {
 }
 
 class _HomeFragmentState extends ConsumerState<HomeFragment> {
-  final scrollController = ScrollController();
+  final scrollController =
+      ScrollController(); // 특정 위젯 안에서만 쓰는거면 굳이 riverpod로 안해도 됨
+  String title = "월계동";
 
   @override
   void initState() {
@@ -27,11 +33,32 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(controller: scrollController, children: [
-      Container(height: 500, color: Colors.red),
-      Container(height: 500, color: Colors.blue),
-      Container(height: 500, color: Colors.red),
-      Container(height: 500, color: Colors.blue),
-    ]);
+    return Column(
+      children: [
+        AppBar(
+          title: PopupMenuButton<String>(
+            onSelected: (value) {
+              setState(() {
+                title = value;
+              });
+            },
+            itemBuilder: (BuildContext context) => ['월계동', '서초동']
+                .map((e) => PopupMenuItem(value: e, child: Text(e)))
+                .toList(),
+            child: title.text.make(),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            padding: const EdgeInsets.only(bottom: FloatingDanggnButton.height),
+            controller: scrollController,
+            itemBuilder: (context, index) => ProductPostItem(postList[index]),
+            itemCount: postList.length,
+            separatorBuilder: (context, index) =>
+                const Divider().pSymmetric(h: 15),
+          ),
+        ),
+      ],
+    );
   }
 }

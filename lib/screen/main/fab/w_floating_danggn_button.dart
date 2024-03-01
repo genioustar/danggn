@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FloatingDanggnButton extends ConsumerWidget {
+  static const height = 200.0;
+
   FloatingDanggnButton({super.key});
   final duration = 300.ms;
   @override
